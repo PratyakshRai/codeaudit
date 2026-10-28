@@ -1,0 +1,1 @@
+{"framework":null,"buildCommand":"npm run build","outputDirectory":"dist","rewrites":[{"source":"/api/review","destination":"/api/index"},{"source":"/api/health","destination":"/api/index?health=1"}]}
