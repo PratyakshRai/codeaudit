@@ -1,11 +1,17 @@
-# CodeAudit AI — Vercel deployment
+# CodeAudit AI — Gemini aur Vercel
 
-1. ZIP extract karo. codeaudit folder ke andar ka content GitHub repository root par upload karo: package.json, requirements.txt, vercel.json, api, client. .env aur node_modules upload mat karo.
-2. Vercel par Add New → Project → GitHub repo import karo. Root directory repository root hai. Framework Other/none; build `npm run build`; output directory `dist`. vercel.json ye values set karta hai.
-3. Environment Variables mein Production ke liye: `OPENAI_API_KEY` = apni OpenAI API key; `AUDIT_ACCESS_KEY` = unique random password (kam se kam 16 characters); optional `OPENAI_MODEL` = tumhare account par available structured-output capable model. Default gpt-4o-mini. API key aur access key alag honi chahiye.
-4. Deploy karo. Production `/api/health` par configured: true aana chahiye; actual API call ka proof nahi hai.
-5. Website kholo, access key daalo, short sample code aur language select karke Review code dabao. Findings, suggested changes aur Markdown download check karo.
-6. Public repo ya chat mein API key, access key ya sensitive code mat daalo. OpenAI usage ka charge ho sakta hai; usage limits set karo. Shared key protection complete login/rate limiting nahi hai.
-7. Error aaye toh Vercel runtime logs ka secret-free screenshot bhejo. Invalid key, missing credit, model access aur timeouts possible causes hain.
+Ye update OpenAI ke bajay Google Gemini API use karta hai. Gemini consumer Pro subscription aur developer API quota/billing alag ho sakte hain. Google AI Studio project par model availability aur free-tier quota check karein.
 
-This deployment and real model integration have not yet been tested with account credentials.
+1. Is ZIP ko extract karein. Existing GitHub CodeAudit repository mein in files ko replace karein: `api/index.py`, `requirements.txt`. Agar kisi file mein aapne pehle custom changes kiye hain, unka backup/compare karein. Secrets kabhi repository par upload na karein.
+2. Google AI Studio https://aistudio.google.com/apikey se Gemini Developer API key banayein. Key chat ya screenshot mein share na karein.
+3. Existing Vercel project > Settings > Environment Variables mein Production ke liye:
+   GEMINI_API_KEY = Google AI Studio ki actual secret key
+   AUDIT_ACCESS_KEY = apna alag unique 16+ character random password
+   GEMINI_MODEL = gemini-2.5-flash (optional; default bhi yahi hai)
+   GEMINI_API_KEY aur AUDIT_ACCESS_KEY alag rakhein. OPENAI_API_KEY is version ko nahi chahiye.
+4. Existing repository ki latest commit deploy ho. Environment variable badalne ke baad Deployments se Redeploy karein.
+5. Project domain ke /api/health par {"ok":true,"configured":true} check karein. Ye API key valid hone ka proof nahi hai.
+6. Website par AUDIT_ACCESS_KEY daliye; ek chhota harmless sample paste karein; Review code click karein; results, suggested diff aur Markdown download verify karein.
+7. Error aaye toh Vercel Runtime Logs ka screenshot share karein; credentials, source aur sensitive content hide karke.
+
+Free tier rate limits lagte hain. Provider usage aur privacy terms check karein. AI ke paas bheja gaya code confidential ho sakta hai; secrets/private code paste na karein. Shared access key full authentication, per-user rate limiting ya spending controls nahi hai; Vercel public endpoint par AI costs/abuse guard karein. Real Gemini review bina user key ke is environment mein verify nahi hui.
